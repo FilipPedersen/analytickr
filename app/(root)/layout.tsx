@@ -26,8 +26,10 @@ export default function RootLayout({
                         defaultTheme="system"
                         enableSystem
                     >
-                        <Topbar />
-                        <div className="w-full max-w-4xl">{children}</div>
+                        <div className="min-h-screen w-full p-4 items-center flex-col flex pb-32 overflow-hidden bg-background">
+                            <Topbar />
+                            {children}
+                        </div>
                     </ThemeProvider>
                 </body>
             </html>

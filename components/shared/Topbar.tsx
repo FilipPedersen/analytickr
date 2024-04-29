@@ -4,9 +4,10 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export const Topbar = () => {
     return (
-        <nav className="flex bg-secondary w-full container items-center rounded-full justify-between p-4">
+        <nav className="flex bg-secondary w-full container items-center rounded-lg justify-between p-4">
             <h1>Analytickr</h1>
             <div className="flex flex-row gap-2 items-center">
+                <ModeToggle />
                 <SignedIn>
                     <UserButton />
                 </SignedIn>
@@ -17,7 +18,6 @@ export const Topbar = () => {
                         </button>
                     </SignInButton>
                 </SignedOut>
-                <ModeToggle />
             </div>
         </nav>
     );
