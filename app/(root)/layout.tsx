@@ -23,10 +23,10 @@ export default function RootLayout({
                 <body className={inter.className}>
                     <ThemeProvider
                         attribute="class"
-                        defaultTheme="system"
+                        defaultTheme="light"
                         enableSystem
                     >
-                        <div className="min-h-screen w-full p-4 items-center flex-col flex pb-32 overflow-hidden bg-background">
+                        <div className="min-h-screen w-full items-center flex-col flex pb-32 overflow-hidden bg-background">
                             <Topbar />
                             {children}
                         </div>
