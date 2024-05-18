@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export default authMiddleware({
     publicRoutes: ["/"],
-    ignoredRoutes: ["/api/webhook/clerk"],
+    ignoredRoutes: ["/api/(.*)"],
     afterAuth(auth, req, evt) {
         const { userId, isPublicRoute } = auth;
 
