@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getCompanyData } from "@/lib/getCompanyData";
+import { auth, getAuth } from "@clerk/nextjs/server";
+import { useAuth, useUser } from "@clerk/nextjs";
 
 export default function Dashboard() {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -16,7 +14,6 @@ export default function Dashboard() {
             } catch (err) {
                 console.error("Error fetching data:", err);
             } finally {
-                setLoading(false);
             }
         };
 
