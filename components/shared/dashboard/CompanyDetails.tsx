@@ -18,12 +18,12 @@ const CompanyDetails = ({ data }: { data: CompanyDto }) => {
             </div>
             <div className="flex text-neutral-600 ">
                 <div className="text-sm pr-4">
-                    <p className="">Market Cap: {data.marketCap}</p>
-                    <p className=" ">Enterprise V: --</p>
+                    <p>Market Cap: {data.marketCap}</p>
+                    <p>Enterprise V: --</p>
                 </div>
                 <div className="text-sm px-4">
-                    <p className="">Price: 0</p>
-                    <p className=" ">Volume: 0</p>
+                    <p>Price: 0</p>
+                    <p>Volume: 0</p>
                 </div>
                 <div>
                     <p className="text-sm px-4">Dividend: {data.dividend}</p>
@@ -35,6 +35,7 @@ const CompanyDetails = ({ data }: { data: CompanyDto }) => {
                     title="Growth Metrics"
                 />
                 <MetricsTable data={data.valuation} title="Valuation" />
+                <MetricsTable data={data.technicals} title="Technicals" />
                 <CurrentPriceChart />
             </div>
         </Card>

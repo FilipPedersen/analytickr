@@ -1,5 +1,6 @@
 import {
     GrowthMetrics,
+    Technicals,
     Valuation,
 } from "@/app/(root)/dashboard/[ticker]/company.dto";
 import React from "react";
@@ -8,7 +9,7 @@ const MetricsTable = ({
     data,
     title,
 }: {
-    data: GrowthMetrics | Valuation;
+    data: GrowthMetrics | Valuation | Technicals;
     title: string;
 }) => {
     return (

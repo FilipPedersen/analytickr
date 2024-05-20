@@ -2,11 +2,20 @@ export interface CompanyDto {
     company: Company;
     growthMetrics: GrowthMetrics;
     valuation: Valuation;
+    technicals: Technicals;
     marketCap: number;
     dividend: number;
     grossMargin: number;
     quarterly: ChartData[];
     yearly: ChartData[];
+}
+
+export interface Technicals {
+    "52weekHigh": number;
+    "52weekLow": number;
+    revenue: number;
+    wallStreetTargetPrice: number;
+    ebitda: number;
 }
 
 export interface ChartData {
