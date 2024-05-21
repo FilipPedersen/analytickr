@@ -4,13 +4,17 @@ import { Input } from "../ui/input";
 
 export const Topbar = () => {
     return (
-        <nav className="relative container min-h-[56px] w-full flex items-center justify-between shrink-0 bg-[#ffffff66] backdrop-blur-xl max-h-10 border shadow-[rgba(85,166,246,0.1)_0px_0px_1px,rgba(85,166,246,0.15)_1px_1.5px_2px_-1px,rgba(85,166,246,0.15)_4px_4px_12px_-2.5px] px-4 rounded-[999px] border-solid border-[#bfccd980]">
-            <nav className="container flex w-full justify-between items-center">
-                <h1>Analytickr</h1>
-                <div className="flex flex-row gap-2 items-center">
+        <nav className="relative container min-h-[56px] w-full flex items-center max-h-10 border px-4 rounded-full ">
+            <nav className="flex w-full justify-between items-center">
+                <div className="w-full">
                     <SignedIn>
-                        <Input placeholder="Search for a company (TICKR)"></Input>
-                        <UserButton afterSignOutUrl="/landing" />
+                        <div className="flex gap-4 sm:grid sm:grid-cols-3 items-center">
+                            <h1>Analytickr</h1>
+                            <Input placeholder="Search for a company (TICKR)"></Input>
+                            <div className="flex items-center justify-end">
+                                <UserButton afterSignOutUrl="/landing" />
+                            </div>
+                        </div>
                     </SignedIn>
                     <SignedOut>
                         <SignInButton>

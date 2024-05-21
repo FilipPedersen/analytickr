@@ -13,7 +13,7 @@ const CompanyDetails = ({ data }: { data: CompanyDto }) => {
                     {data.company.name} <span>({data.company.ticker})</span>
                 </CardTitle>
                 <div>
-                    <Button>Follow</Button>
+                    <Button className="bg-primary">Follow</Button>
                 </div>
             </div>
             <div className="flex text-neutral-600 ">

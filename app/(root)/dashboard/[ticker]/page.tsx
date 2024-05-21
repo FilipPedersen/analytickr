@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { CompanyDto } from "./company.dto";
 import CompanyDetails from "@/components/shared/dashboard/CompanyDetails";
 import Chart from "@/components/shared/dashboard/Chart";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Dashboard = ({ params }: { params: { ticker: string } }) => {
     const { ticker } = params;
@@ -36,7 +37,32 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
     return (
         <div className="w-full">
             {data ? <CompanyDetails data={data} /> : <p>No data available</p>}
-            <Chart />
+            <div>
+                <Tabs defaultValue="quarterly">
+                    <div className="flex justify-center">
+                        <TabsList>
+                            <TabsTrigger className="w-52" value="quarterly">
+                                Quarterly
+                            </TabsTrigger>
+                            <TabsTrigger className="w-52" value="yearly">
+                                Yearly
+                            </TabsTrigger>
+                        </TabsList>
+                    </div>
+                    <TabsContent value="quarterly">
+                        <div className="">
+                            {data?.quarterly.map((chartData, index) => (
+                                <Chart key={index} chartData={chartData} />
+                            ))}
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="yearly">
+                        {data?.yearly.map((chartData, index) => (
+                            <Chart key={index} chartData={chartData} />
+                        ))}
+                    </TabsContent>
+                </Tabs>
+            </div>
         </div>
     );
 };

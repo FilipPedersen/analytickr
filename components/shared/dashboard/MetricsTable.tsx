@@ -13,7 +13,7 @@ const MetricsTable = ({
     title: string;
 }) => {
     return (
-        <div className="w-full drop shadow-sm rounded p-4">
+        <div className="w-full drop shadow border border-border rounded p-4">
             <p className="text-lg">{title}:</p>
 
             <div className="flex flex-col text-sm">
