@@ -1,11 +1,25 @@
-import React from "react";
-import { Button } from "../../ui/button";
-import { CompanyDto } from "@/app/(root)/dashboard/[ticker]/company.dto";
-import { Card, CardTitle } from "../../ui/card";
-import MetricsTable from "./MetricsTable";
-import CurrentPriceChart from "./CurrentPriceChart";
+import React from 'react';
+import { Button } from '../../ui/button';
+import { CompanyDto } from '@/app/(root)/dashboard/[ticker]/company.dto';
+import { Card, CardTitle } from '../../ui/card';
+import MetricsTable from './MetricsTable';
+import CurrentPriceChart from './CurrentPriceChart';
+import { NextPage } from 'next';
+import { ClipLoader } from 'react-spinners';
 
-const CompanyDetails = ({ data }: { data: CompanyDto }) => {
+type Data = {
+    data: CompanyDto;
+    loading: boolean;
+};
+
+const CompanyDetails: NextPage<Data> = ({ data, loading }) => {
+    if (loading)
+        return (
+            <div>
+                <ClipLoader color="#123abc" loading={loading} size={50} />
+            </div>
+        );
+
     return (
         <Card className="p-4">
             <div className="flex justify-between items-center">

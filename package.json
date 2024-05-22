@@ -26,6 +26,7 @@
         "react": "^18",
         "react-chartjs-2": "^5.2.0",
         "react-dom": "^18",
+        "react-spinners": "^0.13.8",
         "svix": "^1.21.0",
         "tailwind-merge": "^2.3.0",
         "tailwindcss-animate": "^1.0.7"

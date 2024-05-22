@@ -1,10 +1,10 @@
-import React from "react";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Input } from "../ui/input";
+import React from 'react';
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { Input } from '../ui/input';
 
 export const Topbar = () => {
     return (
-        <nav className="relative container min-h-[56px] w-full flex items-center max-h-10 border px-4 rounded-full ">
+        <nav className="relative container min-h-[60px] w-full flex items-center max-h-10 border px-4 rounded-full my-4">
             <nav className="flex w-full justify-between items-center">
                 <div className="w-full">
                     <SignedIn>

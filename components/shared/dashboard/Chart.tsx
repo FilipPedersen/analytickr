@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -7,10 +7,11 @@ import {
     Title,
     Tooltip,
     Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-import { ChartData } from "@/app/(root)/dashboard/[ticker]/company.dto";
-import { NextPage } from "next";
+} from 'chart.js';
+import { Bar, Line } from 'react-chartjs-2';
+import { ChartData } from '@/app/(root)/dashboard/[ticker]/company.dto';
+import { NextPage } from 'next';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 ChartJS.register(
     CategoryScale,
@@ -18,7 +19,7 @@ ChartJS.register(
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
 );
 
 type AppProps = {
@@ -30,7 +31,7 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
         responsive: true,
         plugins: {
             legend: {
-                position: "top" as const,
+                position: 'top' as const,
             },
             title: {
                 display: false,
@@ -51,23 +52,40 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
         ],
     };
 
-    return <Bar options={options} data={data} />;
+    return (
+        <Card className="border rounded p-4">
+            <CardTitle>{chartData.label}</CardTitle>
+            <p className="text-[10px] text-neutral-400">
+                In {chartData.metric}
+            </p>
+            <CardContent>
+                {chartData.chartType === 'bar' ? (
+                    <Bar options={options} data={data} />
+                ) : chartData.chartType === 'line' ? (
+                    <Line options={options} data={data} />
+                ) : null}
+            </CardContent>
+            <p className="flex justify-end pb-2 pr-2 text-[10px] text-neutral-400">
+                powered by Analytickr
+            </p>
+        </Card>
+    );
 };
 
 const getRgbColor = (colorName: string): string => {
     switch (colorName.toLowerCase()) {
-        case "green":
-            return "75, 192, 192";
-        case "purple":
-            return "153, 102, 255";
-        case "red":
-            return "255, 99, 132";
-        case "blue":
-            return "54, 162, 235";
-        case "yellow":
-            return "255, 206, 86";
+        case 'green':
+            return '75, 192, 192';
+        case 'purple':
+            return '153, 102, 255';
+        case 'red':
+            return '255, 99, 132';
+        case 'blue':
+            return '54, 162, 235';
+        case 'yellow':
+            return '255, 206, 86';
         default:
-            return "0, 0, 0";
+            return '0, 0, 0';
     }
 };
 
