@@ -14,10 +14,10 @@ const MetricsTable = ({
     title: string;
 }) => {
     return (
-        <div className="w-full drop shadow border border-border rounded p-4">
+        <div className="w-full border border-border rounded p-4">
             <CardTitle>{title}:</CardTitle>
 
-            <div className="flex flex-col text-sm">
+            <div className="flex flex-col text-sm mt-2">
                 {Object.entries(data).map(([key, value]) => (
                     <div
                         key={key}

@@ -5,54 +5,63 @@ import { Card, CardTitle } from '../../ui/card';
 import MetricsTable from './MetricsTable';
 import CurrentPriceChart from './CurrentPriceChart';
 import { NextPage } from 'next';
-import { ClipLoader } from 'react-spinners';
+import { BarLoader, ClipLoader, PulseLoader } from 'react-spinners';
 
 type Data = {
-    data: CompanyDto;
+    data: CompanyDto | null;
     loading: boolean;
 };
 
 const CompanyDetails: NextPage<Data> = ({ data, loading }) => {
-    if (loading)
+    if (loading || !data)
         return (
-            <div>
-                <ClipLoader color="#123abc" loading={loading} size={50} />
+            <div className="flex lg:flex-row flex-col gap-4">
+                <Card className="flex items-center min-h-[329px] justify-center w-full">
+                    <PulseLoader color="#2563eb" loading={loading} size={10} />
+                </Card>
+                <Card className="flex items-center min-h-[329px] justify-center w-full h-full max-w-[496px]">
+                    <PulseLoader color="#2563eb" loading={loading} size={10} />
+                </Card>
             </div>
         );
 
     return (
-        <Card className="p-4">
-            <div className="flex justify-between items-center">
-                <CardTitle className="text-xl">
-                    {data.company.name} <span>({data.company.ticker})</span>
-                </CardTitle>
-                <div>
-                    <Button className="bg-primary">Follow</Button>
+        <div className="flex lg:flex-row flex-col gap-4">
+            <Card className="p-4 w-full">
+                <div className="flex justify-between items-center">
+                    <CardTitle className="text-xl">
+                        {data.company.name} <span>({data.company.ticker})</span>
+                    </CardTitle>
+                    <div>
+                        <Button className="bg-primary">Follow</Button>
+                    </div>
                 </div>
-            </div>
-            <div className="flex text-neutral-600 ">
-                <div className="text-sm pr-4">
-                    <p>Market Cap: {data.marketCap}</p>
-                    <p>Enterprise V: --</p>
+                <div className="flex text-neutral-600 ">
+                    <div className="text-sm pr-4">
+                        <p>Market Cap: {data.marketCap}</p>
+                        <p>Enterprise V: --</p>
+                    </div>
+                    <div className="text-sm px-4">
+                        <p>Price: 0</p>
+                        <p>Volume: 0</p>
+                    </div>
+                    <div>
+                        <p className="text-sm px-4">
+                            Dividend: {data.dividend}
+                        </p>
+                    </div>
                 </div>
-                <div className="text-sm px-4">
-                    <p>Price: 0</p>
-                    <p>Volume: 0</p>
+                <div className="flex flex-col md:flex-row gap-4 mt-4">
+                    <MetricsTable
+                        data={data.growthMetrics}
+                        title="Growth Metrics"
+                    />
+                    <MetricsTable data={data.valuation} title="Valuation" />
+                    <MetricsTable data={data.technicals} title="Technicals" />
                 </div>
-                <div>
-                    <p className="text-sm px-4">Dividend: {data.dividend}</p>
-                </div>
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 mt-4">
-                <MetricsTable
-                    data={data.growthMetrics}
-                    title="Growth Metrics"
-                />
-                <MetricsTable data={data.valuation} title="Valuation" />
-                <MetricsTable data={data.technicals} title="Technicals" />
-                <CurrentPriceChart />
-            </div>
-        </Card>
+            </Card>
+            <CurrentPriceChart />
+        </div>
     );
 };
 

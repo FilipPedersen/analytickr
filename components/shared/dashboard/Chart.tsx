@@ -24,6 +24,7 @@ ChartJS.register(
 
 type AppProps = {
     chartData: ChartData;
+    loading: boolean;
 };
 
 const Chart: NextPage<AppProps> = ({ chartData }) => {
@@ -53,7 +54,7 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
     };
 
     return (
-        <Card className="border rounded p-4">
+        <Card className="border p-4">
             <CardTitle>{chartData.label}</CardTitle>
             <p className="text-[10px] text-neutral-400">
                 In {chartData.metric}
@@ -65,7 +66,7 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
                     <Line options={options} data={data} />
                 ) : null}
             </CardContent>
-            <p className="flex justify-end pb-2 pr-2 text-[10px] text-neutral-400">
+            <p className="flex justify-end text-[10px] text-neutral-400">
                 powered by Analytickr
             </p>
         </Card>
