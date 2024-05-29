@@ -5,7 +5,7 @@ import { CompanyDto } from './company.dto';
 import CompanyDetails from '@/components/shared/dashboard/CompanyDetails';
 import Chart from '@/components/shared/dashboard/Chart';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ClipLoader, PulseLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 import { Card } from '@/components/ui/card';
 
 const Dashboard = ({ params }: { params: { ticker: string } }) => {
@@ -14,7 +14,6 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
     const [data, setData] = useState<CompanyDto | null>(null);
     const [loading, setLoading] = useState(true);
     const [stockChartLoading, setStockChartLoading] = useState(true);
-
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -62,9 +61,11 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
                                     <>
                                         {Array.from({ length: 6 }).map(
                                             (_, index) => (
-                                                <Card className="flex items-center justify-center w-full min-h-96">
+                                                <Card
+                                                    key={index}
+                                                    className="flex items-center justify-center w-full min-h-96"
+                                                >
                                                     <PulseLoader
-                                                        key={index}
                                                         color="#2563eb"
                                                         loading={loading}
                                                     />
@@ -89,30 +90,15 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
                             <div className="grid grid-cols-3 gap-4 w-full">
                                 {loading ? (
                                     <div className="">
-                                        <PulseLoader
-                                            color="#2563eb"
-                                            loading={loading}
-                                        />
-                                        <PulseLoader
-                                            color="#2563eb"
-                                            loading={loading}
-                                        />
-                                        <PulseLoader
-                                            color="#2563eb"
-                                            loading={loading}
-                                        />
-                                        <PulseLoader
-                                            color="#2563eb"
-                                            loading={loading}
-                                        />
-                                        <PulseLoader
-                                            color="#2563eb"
-                                            loading={loading}
-                                        />
-                                        <PulseLoader
-                                            color="#2563eb"
-                                            loading={loading}
-                                        />
+                                        {Array.from({ length: 6 }).map(
+                                            (_, index) => (
+                                                <PulseLoader
+                                                    key={index}
+                                                    color="#2563eb"
+                                                    loading={loading}
+                                                />
+                                            ),
+                                        )}
                                     </div>
                                 ) : (
                                     data?.yearly.map((chartData, index) => (

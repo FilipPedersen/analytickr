@@ -6,6 +6,7 @@ import MetricsTable from './MetricsTable';
 import CurrentPriceChart from './CurrentPriceChart';
 import { NextPage } from 'next';
 import { BarLoader, ClipLoader, PulseLoader } from 'react-spinners';
+import Image from 'next/image';
 
 type Data = {
     data: CompanyDto | null;
@@ -13,6 +14,10 @@ type Data = {
 };
 
 const CompanyDetails: NextPage<Data> = ({ data, loading }) => {
+    const iconUrl =
+        `https://eodhd.com/${data?.company.logoUrl}` ||
+        '/images/placeholder.png';
+
     if (loading || !data)
         return (
             <div className="flex lg:flex-row flex-col gap-4">
@@ -29,9 +34,19 @@ const CompanyDetails: NextPage<Data> = ({ data, loading }) => {
         <div className="flex lg:flex-row flex-col gap-4">
             <Card className="p-4 w-full">
                 <div className="flex justify-between items-center">
-                    <CardTitle className="text-xl">
-                        {data.company.name} <span>({data.company.ticker})</span>
-                    </CardTitle>
+                    <div className="flex gap-2">
+                        <Image
+                            className="rounded"
+                            src={iconUrl}
+                            width={30}
+                            height={30}
+                            alt={data.company.name}
+                        ></Image>
+                        <CardTitle className="text-xl">
+                            {data.company.name}{' '}
+                            <span>({data.company.ticker})</span>
+                        </CardTitle>
+                    </div>
                     <div>
                         <Button className="bg-primary">Follow</Button>
                     </div>
