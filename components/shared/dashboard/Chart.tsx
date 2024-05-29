@@ -11,7 +11,7 @@ import {
 import { Bar, Line } from 'react-chartjs-2';
 import { ChartData } from '@/app/(root)/dashboard/[ticker]/company.dto';
 import { NextPage } from 'next';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
 
 ChartJS.register(
     CategoryScale,
@@ -40,24 +40,26 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
         },
     };
 
+    console.log('chartData:', chartData);
+
     const data = {
         labels: chartData.labels,
-        datasets: [
-            {
-                label: chartData.label,
-                backgroundColor: `rgba(${getRgbColor(chartData.color)}, 0.4)`,
-                borderColor: chartData.color,
+        datasets: chartData.datasets.map((dataset) => {
+            return {
+                label: dataset.label,
+                backgroundColor: `rgba(${getRgbColor(dataset.color)}, 0.4)`,
+                borderColor: dataset.color,
                 borderWidth: 1,
-                data: chartData.data,
-            },
-        ],
+                data: dataset.data,
+            };
+        }),
     };
 
     return (
         <Card className="border p-4">
             <CardTitle>{chartData.label}</CardTitle>
             <p className="text-[10px] text-neutral-400">
-                In {chartData.metric}
+                {/* In {chartData.metric} */}
             </p>
             <CardContent>
                 {chartData.chartType === 'bar' ? (
@@ -73,21 +75,26 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
     );
 };
 
-const getRgbColor = (colorName: string): string => {
-    switch (colorName.toLowerCase()) {
-        case 'green':
-            return '75, 192, 192';
-        case 'purple':
-            return '153, 102, 255';
-        case 'red':
-            return '255, 99, 132';
-        case 'blue':
-            return '54, 162, 235';
-        case 'yellow':
-            return '255, 206, 86';
-        default:
-            return '0, 0, 0';
+const getRgbColor = (colorNames: string | string[]): string[] => {
+    if (typeof colorNames === 'string') {
+        colorNames = [colorNames];
     }
+    return colorNames.map((color) => {
+        switch (color.toLowerCase()) {
+            case 'green':
+                return '75, 192, 192';
+            case 'purple':
+                return '153, 102, 255';
+            case 'red':
+                return '255, 99, 132';
+            case 'blue':
+                return '54, 162, 235';
+            case 'yellow':
+                return '255, 206, 86';
+            default:
+                return '0, 0, 0';
+        }
+    });
 };
 
 export default Chart;
