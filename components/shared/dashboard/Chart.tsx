@@ -7,6 +7,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    scales,
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
 import { ChartData } from '@/app/(root)/dashboard/[ticker]/company.dto';
@@ -20,6 +21,7 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
+    scales,
 );
 
 type AppProps = {
@@ -30,12 +32,20 @@ type AppProps = {
 const Chart: NextPage<AppProps> = ({ chartData }) => {
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'top' as const,
             },
             title: {
                 display: false,
+            },
+        },
+        scales: {
+            x: {
+                ticks: {
+                    autoSkip: false,
+                },
             },
         },
     };
@@ -59,14 +69,16 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
         <Card className="border p-4">
             <CardTitle>{chartData.label}</CardTitle>
             <p className="text-[10px] text-neutral-400">
-                {/* In {chartData.metric} */}
+                In {chartData.metric}
             </p>
             <CardContent>
-                {chartData.chartType === 'bar' ? (
-                    <Bar options={options} data={data} />
-                ) : chartData.chartType === 'line' ? (
-                    <Line options={options} data={data} />
-                ) : null}
+                <div className="h-56">
+                    {chartData.chartType === 'bar' ? (
+                        <Bar options={options} data={data} />
+                    ) : chartData.chartType === 'line' ? (
+                        <Line options={options} data={data} />
+                    ) : null}
+                </div>
             </CardContent>
             <p className="flex justify-end text-[10px] text-neutral-400">
                 powered by Analytickr

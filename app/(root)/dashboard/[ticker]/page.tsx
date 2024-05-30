@@ -56,38 +56,44 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
 
                     <TabsContent value="quarterly">
                         <div className="w-full">
-                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                            <div className="flex flex-wrap -mr-3 -ml-3">
                                 {loading ? (
                                     <>
                                         {Array.from({ length: 6 }).map(
                                             (_, index) => (
-                                                <Card
+                                                <div
                                                     key={index}
-                                                    className="flex items-center justify-center w-full min-h-96"
+                                                    className="flex-initial w-full md:w-1/2 xl:w-1/3 p-2"
                                                 >
-                                                    <PulseLoader
-                                                        color="#2563eb"
-                                                        loading={loading}
-                                                    />
-                                                </Card>
+                                                    <Card className="flex items-center justify-center w-full min-h-80">
+                                                        <PulseLoader
+                                                            color="#2563eb"
+                                                            loading={loading}
+                                                        />
+                                                    </Card>
+                                                </div>
                                             ),
                                         )}
                                     </>
                                 ) : (
                                     data?.quarterly.map((chartData, index) => (
-                                        <Chart
+                                        <div
                                             key={index}
-                                            chartData={chartData}
-                                            loading={loading}
-                                        />
+                                            className="flex-initial w-full md:w-1/2 xl:w-1/3 p-2"
+                                        >
+                                            <Chart
+                                                chartData={chartData}
+                                                loading={loading}
+                                            />
+                                        </div>
                                     ))
                                 )}
                             </div>
                         </div>
                     </TabsContent>
                     <TabsContent value="yearly">
-                        <div className="w-full">
-                            <div className="grid grid-cols-3 gap-4 w-full">
+                        <div className="w-full ">
+                            <div className="flex flex-wrap -mr-3 -ml-3">
                                 {loading ? (
                                     <div className="">
                                         {Array.from({ length: 6 }).map(
@@ -102,11 +108,13 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
                                     </div>
                                 ) : (
                                     data?.yearly.map((chartData, index) => (
-                                        <Chart
-                                            key={index}
-                                            chartData={chartData}
-                                            loading={loading}
-                                        />
+                                        <div className="flex-initial w-full md:w-1/2 xl:w-1/3 p-2">
+                                            <Chart
+                                                key={index}
+                                                chartData={chartData}
+                                                loading={loading}
+                                            />
+                                        </div>
                                     ))
                                 )}
                             </div>
