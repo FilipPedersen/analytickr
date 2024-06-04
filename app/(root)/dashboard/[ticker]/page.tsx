@@ -7,6 +7,7 @@ import Chart from '@/components/shared/dashboard/Chart';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PulseLoader } from 'react-spinners';
 import { Card } from '@/components/ui/card';
+import FooterCard from '@/components/shared/dashboard/FooterCard';
 
 const Dashboard = ({ params }: { params: { ticker: string } }) => {
     const { ticker } = params;
@@ -122,6 +123,7 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
                     </TabsContent>
                 </Tabs>
             </div>
+            <FooterCard />
         </div>
     );
 };

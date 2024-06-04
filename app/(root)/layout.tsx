@@ -20,7 +20,7 @@ export default function RootLayout({
     return (
         <ClerkProvider>
             <html suppressHydrationWarning lang="en">
-                <body className={`${inter.className} gradient-background`}>
+                <body className={`${inter.className} bg-slate-100`}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="light"

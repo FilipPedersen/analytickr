@@ -43,9 +43,6 @@ export async function POST(req: Request) {
     if (evt.type === 'user.created') {
         const { id: clerkId, email_addresses } = evt.data;
         const email = email_addresses[0].email_address;
-
-        console.log('user created', clerkId, email);
-
         try {
             const response = await fetch(
                 `http://localhost:3100/users/user-signed-up`,
@@ -60,16 +57,12 @@ export async function POST(req: Request) {
                     }),
                 },
             );
-
             if (!response.ok) {
                 throw new Error(
                     `Failed to post data to backend: ${response.statusText}`,
                 );
             }
-
-            console.log('User data sent to backend');
         } catch (error) {
-            console.error('Error sending data to backend:', error);
             return new Response('Error occurred', {
                 status: 500,
             });

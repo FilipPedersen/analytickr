@@ -7,7 +7,9 @@ import {
     Title,
     Tooltip,
     Legend,
-    scales,
+    PointElement,
+    LineElement,
+    Filler,
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
 import { ChartData } from '@/app/(root)/dashboard/[ticker]/company.dto';
@@ -21,7 +23,9 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
-    scales,
+    PointElement,
+    LineElement,
+    Filler,
 );
 
 type AppProps = {
@@ -29,8 +33,40 @@ type AppProps = {
     loading: boolean;
 };
 
+const getRgbColor = (color: string): string => {
+    switch (color.toLowerCase()) {
+        case 'green':
+            return '75, 192, 192';
+        case 'purple':
+            return '153, 102, 255';
+        case 'red':
+            return '255, 99, 132';
+        case 'blue':
+            return '54, 162, 235';
+        case 'yellow':
+            return '255, 206, 86';
+        case 'orange':
+            return '255, 159, 64';
+        case 'grey':
+            return '44, 45, 45';
+        default:
+            return '0, 0, 0';
+    }
+};
+
+const createGradient = (
+    ctx: CanvasRenderingContext2D,
+    chartArea: any,
+    color: string,
+): CanvasGradient => {
+    const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
+    gradient.addColorStop(0, `rgba(${getRgbColor(color)}, 0.8)`);
+    gradient.addColorStop(1, `rgba(${getRgbColor(color)}, 0.2)`);
+    return gradient;
+};
+
 const Chart: NextPage<AppProps> = ({ chartData }) => {
-    const options = {
+    const barOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -50,19 +86,50 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
         },
     };
 
-    console.log('chartData:', chartData);
+    const lineOptions = {
+        responsive: true,
+        elements: {
+            point: {
+                radius: 0,
+            },
+        },
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top' as const,
+            },
+            title: {
+                display: false,
+            },
+        },
+        scales: {
+            x: {
+                ticks: {
+                    autoSkip: false,
+                },
+            },
+        },
+    };
 
     const data = {
         labels: chartData.labels,
-        datasets: chartData.datasets.map((dataset) => {
-            return {
-                label: dataset.label,
-                backgroundColor: `rgba(${getRgbColor(dataset.color)}, 0.4)`,
-                borderColor: dataset.color,
-                borderWidth: 1,
-                data: dataset.data,
-            };
-        }),
+        datasets: chartData.datasets.map((dataset) => ({
+            label: dataset.label,
+            backgroundColor: function (ctx: {
+                chart: { ctx: CanvasRenderingContext2D; chartArea: any };
+            }): CanvasGradient | undefined {
+                const chart = ctx.chart;
+                const { ctx: context, chartArea } = chart;
+                if (!chartArea) {
+                    return undefined;
+                }
+                return createGradient(context, chartArea, dataset.color);
+            },
+            borderColor: dataset.color,
+            borderWidth: { bar: 1, line: 2 }[chartData.chartType] || 1,
+            data: dataset.data,
+            fill: true,
+        })),
     };
 
     return (
@@ -74,9 +141,9 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
             <CardContent>
                 <div className="h-56">
                     {chartData.chartType === 'bar' ? (
-                        <Bar options={options} data={data} />
+                        <Bar options={barOptions} data={data} />
                     ) : chartData.chartType === 'line' ? (
-                        <Line options={options} data={data} />
+                        <Line options={lineOptions} data={data} />
                     ) : null}
                 </div>
             </CardContent>
@@ -85,28 +152,6 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
             </p>
         </Card>
     );
-};
-
-const getRgbColor = (colorNames: string | string[]): string[] => {
-    if (typeof colorNames === 'string') {
-        colorNames = [colorNames];
-    }
-    return colorNames.map((color) => {
-        switch (color.toLowerCase()) {
-            case 'green':
-                return '75, 192, 192';
-            case 'purple':
-                return '153, 102, 255';
-            case 'red':
-                return '255, 99, 132';
-            case 'blue':
-                return '54, 162, 235';
-            case 'yellow':
-                return '255, 206, 86';
-            default:
-                return '0, 0, 0';
-        }
-    });
 };
 
 export default Chart;
