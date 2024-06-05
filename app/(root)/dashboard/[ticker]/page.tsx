@@ -43,8 +43,8 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
         <div className="w-full">
             <CompanyDetails data={data ? data : null} loading={loading} />
             <div>
-                <Tabs defaultValue="quarterly" className="my-6">
-                    <div className="flex justify-center">
+                <Tabs defaultValue="quarterly" className="my-4">
+                    <div className="flex justify-end">
                         <TabsList>
                             <TabsTrigger className="w-52" value="quarterly">
                                 Quarterly
@@ -123,7 +123,10 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
                     </TabsContent>
                 </Tabs>
             </div>
-            <FooterCard />
+
+            {data ? (
+                <FooterCard companyInformation={data?.companyInformation} />
+            ) : null}
         </div>
     );
 };

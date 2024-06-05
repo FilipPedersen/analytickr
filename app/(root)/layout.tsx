@@ -26,7 +26,7 @@ export default function RootLayout({
                         defaultTheme="light"
                         enableSystem
                     >
-                        <div className="px-2 sm:px-10 z-10">
+                        <div className="px-2 sm:px-10 z-10 pb-10">
                             <Topbar />
                             {children}
                         </div>
