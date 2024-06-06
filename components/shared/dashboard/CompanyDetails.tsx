@@ -5,7 +5,7 @@ import { Card, CardTitle } from '../../ui/card';
 import MetricsTable from './MetricsTable';
 import CurrentPriceChart from './CurrentPriceChart';
 import { NextPage } from 'next';
-import { BarLoader, ClipLoader, PulseLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 import Image from 'next/image';
 
 type Data = {

@@ -125,7 +125,10 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
             </div>
 
             {data ? (
-                <FooterCard companyInformation={data?.companyInformation} />
+                <FooterCard
+                    companyInformation={data?.companyInformation}
+                    ownership={data?.ownership}
+                />
             ) : null}
         </div>
     );
