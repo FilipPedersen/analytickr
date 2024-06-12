@@ -20,14 +20,14 @@ export default function RootLayout({
     return (
         <ClerkProvider>
             <html suppressHydrationWarning lang="en">
-                <body className={`${inter.className} bg-slate-100`}>
+                <body className={`${inter.className} bg-background`}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="light"
                         enableSystem
                     >
-                        <div className="px-2 sm:px-10 z-10 pb-10">
-                            <Topbar />
+                        <Topbar />
+                        <div className="mx-auto max-w-[90rem] px-6 text-left md:px-8">
                             {children}
                         </div>
                     </ThemeProvider>

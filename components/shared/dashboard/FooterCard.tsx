@@ -6,7 +6,6 @@ import { Card, CardTitle } from '@/components/ui/card';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
-import PieChart from './OwnershipPieChart';
 import OwnershipPieChart from './OwnershipPieChart';
 
 type AppProps = {
