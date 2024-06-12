@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '../../ui/button';
-import { CompanyDto } from '@/app/(root)/dashboard/[ticker]/company.dto';
 import { Card, CardTitle } from '../../ui/card';
 import MetricsTable from './MetricsTable';
 import CurrentPriceChart from './CurrentPriceChart';
 import { NextPage } from 'next';
 import { PulseLoader } from 'react-spinners';
 import Image from 'next/image';
+import { CompanyDto } from '@/app/(root)/dashboard/[ticker]/dto/company.dto';
+import { useAuth } from '@clerk/nextjs';
+import { StockDto } from '@/app/(root)/dashboard/[ticker]/dto/stock.dto';
 
 type Data = {
     data: CompanyDto | null;
@@ -14,6 +16,42 @@ type Data = {
 };
 
 const CompanyDetails: NextPage<Data> = ({ data, loading }) => {
+    const { getToken } = useAuth();
+
+    useEffect(() => {
+        const followStock = async () => {
+            const token = await getToken();
+
+            if (!data) return;
+
+            const stock: StockDto = {
+                ticker: data?.company.ticker,
+                companyName: data?.company.name,
+                symbol: data?.company.ticker,
+                logoUrl: data?.company.logoUrl,
+                marketCap: data?.marketCap,
+                priceTarget: data?.technicals.wallStreetTargetPrice,
+                stockPrice: data?.technicals.stockPrice,
+                stockPriceChange: data?.technicals.stockPriceChange,
+                moneyVolume: data?.technicals.moneyVolume,
+            };
+
+            fetch('http://localhost:3100/user/followed-stocks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(stock),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((error) => console.error('Error:', error));
+        };
+    }, []);
+
     const iconUrl =
         `https://eodhd.com/${data?.company.logoUrl}` ||
         '/images/placeholder.png';

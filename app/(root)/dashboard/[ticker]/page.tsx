@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { CompanyDto } from './company.dto';
+import { CompanyDto } from './dto/company.dto';
 import CompanyDetails from '@/components/shared/dashboard/CompanyDetails';
 import Chart from '@/components/shared/dashboard/Chart';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -11,7 +11,6 @@ import FooterCard from '@/components/shared/dashboard/FooterCard';
 
 const Dashboard = ({ params }: { params: { ticker: string } }) => {
     const { ticker } = params;
-
     const [data, setData] = useState<CompanyDto | null>(null);
     const [loading, setLoading] = useState(true);
     const [stockChartLoading, setStockChartLoading] = useState(true);
