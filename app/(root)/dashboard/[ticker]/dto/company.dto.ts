@@ -21,11 +21,13 @@ export interface Technicals {
 }
 
 export interface ChartData {
-    labels: string[];
     label: string;
     chartType: string;
     datasets: Dataset[];
     metric: string;
+    labels: string[];
+    stacked: boolean;
+    showXAxis: boolean;
 }
 
 export interface Dataset {

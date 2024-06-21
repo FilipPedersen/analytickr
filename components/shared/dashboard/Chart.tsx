@@ -12,9 +12,9 @@ import {
     Filler,
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
-import { ChartData } from '@/app/(root)/dashboard/[ticker]/company.dto';
 import { NextPage } from 'next';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { ChartData } from '@/app/(root)/dashboard/[ticker]/dto/company.dto';
 
 ChartJS.register(
     CategoryScale,
@@ -61,7 +61,7 @@ const createGradient = (
 ): CanvasGradient => {
     const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
     gradient.addColorStop(0, `rgba(${getRgbColor(color)}, 0.8)`);
-    gradient.addColorStop(1, `rgba(${getRgbColor(color)}, 0.2)`);
+    gradient.addColorStop(1, `rgba(${getRgbColor(color)}, 0.4)`);
     return gradient;
 };
 
@@ -72,6 +72,9 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
         plugins: {
             legend: {
                 position: 'top' as const,
+                display: chartData.datasets.some(
+                    (dataset) => dataset.label && dataset.label.trim() !== '',
+                ),
             },
             title: {
                 display: false,
@@ -82,6 +85,11 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
                 ticks: {
                     autoSkip: false,
                 },
+                stacked: chartData.stacked,
+                display: chartData.showXAxis,
+            },
+            y: {
+                stacked: chartData.stacked,
             },
         },
     };
@@ -97,6 +105,9 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
         plugins: {
             legend: {
                 position: 'top' as const,
+                display: chartData.datasets.some(
+                    (dataset) => dataset.label && dataset.label.trim() !== '',
+                ),
             },
             title: {
                 display: false,
@@ -107,6 +118,11 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
                 ticks: {
                     autoSkip: false,
                 },
+                stacked: chartData.stacked,
+                display: chartData.showXAxis,
+            },
+            y: {
+                stacked: chartData.stacked,
             },
         },
     };
@@ -139,7 +155,7 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
                 In {chartData.metric}
             </p>
             <CardContent>
-                <div className="h-56">
+                <div className="h-56 pt-2">
                     {chartData.chartType === 'bar' ? (
                         <Bar options={barOptions} data={data} />
                     ) : chartData.chartType === 'line' ? (

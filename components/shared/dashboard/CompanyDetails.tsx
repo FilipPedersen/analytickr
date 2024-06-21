@@ -52,10 +52,6 @@ const CompanyDetails: NextPage<Data> = ({ data, loading }) => {
         };
     }, []);
 
-    const iconUrl =
-        `https://eodhd.com/${data?.company.logoUrl}` ||
-        '/images/placeholder.png';
-
     if (loading || !data)
         return (
             <div className="flex lg:flex-row flex-col gap-4">
@@ -75,7 +71,7 @@ const CompanyDetails: NextPage<Data> = ({ data, loading }) => {
                     <div className="flex gap-2">
                         <Image
                             className="rounded"
-                            src={iconUrl}
+                            src={data.company.logoUrl}
                             width={30}
                             height={30}
                             alt={data.company.name}

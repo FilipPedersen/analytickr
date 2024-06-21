@@ -1,12 +1,12 @@
-import {
-    CompanyInformation,
-    Ownership,
-} from '@/app/(root)/dashboard/[ticker]/company.dto';
 import { Card, CardTitle } from '@/components/ui/card';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import OwnershipPieChart from './OwnershipPieChart';
+import {
+    CompanyInformation,
+    Ownership,
+} from '@/app/(root)/dashboard/[ticker]/dto/company.dto';
 
 type AppProps = {
     ownership: Ownership;
@@ -88,40 +88,56 @@ const FooterCard: NextPage<AppProps> = ({ ownership, companyInformation }) => {
                     <div className="w-1/2 bg-primary-foreground p-4 rounded">
                         <CardTitle>Institutional Ownership</CardTitle>
                         <div className="py-2">
-                            <table className="w-full mt-2">
-                                <thead className="text-xs">
-                                    <tr>
-                                        <th className="text-left">Owner</th>
-                                        <th className="w-24 text-right">
-                                            Stake
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y-2">
-                                    {ownership.institutionalOwners.map(
-                                        (owner, index) => (
-                                            <tr key={index}>
-                                                <td>{owner.name}</td>
-                                                <td className="text-right">
-                                                    {owner.totalShares.toFixed(
-                                                        2,
-                                                    )}
-                                                    %
-                                                </td>
-                                            </tr>
-                                        ),
-                                    )}
-                                </tbody>
-                            </table>
+                            {ownership &&
+                            ownership.institutionalBreakdown &&
+                            ownership.institutionalOwners ? (
+                                <table className="w-full mt-2">
+                                    <thead className="text-xs">
+                                        <tr>
+                                            <th className="text-left">Owner</th>
+                                            <th className="w-24 text-right">
+                                                Stake
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y-2">
+                                        {ownership.institutionalOwners.map(
+                                            (owner, index) => (
+                                                <tr key={index}>
+                                                    <td>{owner.name}</td>
+                                                    <td className="text-right">
+                                                        {owner.totalShares.toFixed(
+                                                            2,
+                                                        )}
+                                                        %
+                                                    </td>
+                                                </tr>
+                                            ),
+                                        )}
+                                    </tbody>
+                                </table>
+                            ) : (
+                                <div className="flex items-center justify-center h-full">
+                                    <p className="font-medium text-2xl text-gray-500">
+                                        Coming soon⚡️
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="w-1/2 bg-primary-foreground p-4 rounded max-h-96 flex flex-col justify-center items-center">
                         <CardTitle className="self-start">
                             Ownership Breakdown (%)
                         </CardTitle>
-                        <OwnershipPieChart
+                        {/* <OwnershipPieChart
                             data={ownership.institutionalBreakdown}
-                        />
+                        /> */}
+
+                        <div className="flex items-center justify-center h-full">
+                            <p className="font-medium text-2xl text-gray-500">
+                                Coming soon⚡️
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

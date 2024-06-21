@@ -27,7 +27,7 @@ export default function RootLayout({
                         enableSystem
                     >
                         <Topbar />
-                        <div className="mx-auto max-w-[90rem] px-6 text-left md:px-8">
+                        <div className="mx-auto max-w-[108rem] px-6 text-left md:px-8">
                             {children}
                         </div>
                     </ThemeProvider>

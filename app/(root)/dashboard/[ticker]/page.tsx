@@ -13,7 +13,6 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
     const { ticker } = params;
     const [data, setData] = useState<CompanyDto | null>(null);
     const [loading, setLoading] = useState(true);
-    const [stockChartLoading, setStockChartLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
