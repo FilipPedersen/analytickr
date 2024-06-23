@@ -45,11 +45,13 @@ const CurrentPriceChart = () => {
     }, [ticker, searchParam]);
 
     return (
-        <Card className="border p-4 w-full max-w-[496px]">
-            <CardTitle>Stock Price</CardTitle>
-            <Select>
+        <div className="w-full gap-4 flex flex-col items-end max-w-[500px]">
+            <Select
+                value={searchParam}
+                onValueChange={(value) => setSearchParam(value)}
+            >
                 <SelectTrigger className="w-[180px]">
-                    <SelectValue defaultValue={'3m'} />
+                    <SelectValue placeholder="Select a timeframe" />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="3m">3 Month</SelectItem>
@@ -58,15 +60,12 @@ const CurrentPriceChart = () => {
                     <SelectItem value="3y">3 Year</SelectItem>
                 </SelectContent>
             </Select>
-            <div>
-                {chartData ? (
-                    <Chart chartData={chartData} loading={loading} />
-                ) : (
-                    <p className="text-center">No data available</p>
-                )}
+            <div className="flex-initial w-full">
+                {loading && <p>Loading...</p>}
+                {error && <p>Error: {error}</p>}
+                {chartData && <Chart chartData={chartData} loading={loading} />}
             </div>
-            <div className="flex flex-col text-sm"></div>
-        </Card>
+        </div>
     );
 };
 

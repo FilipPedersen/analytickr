@@ -69,6 +69,10 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
     const barOptions = {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: {
+            mode: 'nearest' as const,
+            intersect: false,
+        },
         plugins: {
             legend: {
                 position: 'top' as const,
@@ -100,6 +104,10 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
             point: {
                 radius: 0,
             },
+        },
+        interaction: {
+            mode: 'nearest' as const,
+            intersect: false,
         },
         maintainAspectRatio: false,
         plugins: {
@@ -144,6 +152,7 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
             borderColor: dataset.color,
             borderWidth: { bar: 1, line: 2 }[chartData.chartType] || 1,
             data: dataset.data,
+            tension: dataset.tension || 0,
             fill: true,
         })),
     };

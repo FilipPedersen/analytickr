@@ -32,7 +32,8 @@ export interface ChartData {
 
 export interface Dataset {
     data: number[];
-    label: string;
+    label?: string;
+    tension?: number;
     color: string;
 }
 export interface Valuation {
