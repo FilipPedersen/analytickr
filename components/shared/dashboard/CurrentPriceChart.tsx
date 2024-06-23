@@ -46,24 +46,29 @@ const CurrentPriceChart = () => {
 
     return (
         <div className="w-full gap-4 flex flex-col items-end max-w-[500px]">
-            <Select
-                value={searchParam}
-                onValueChange={(value) => setSearchParam(value)}
-            >
-                <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Select a timeframe" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="3m">3 Month</SelectItem>
-                    <SelectItem value="ytd">Year To Date</SelectItem>
-                    <SelectItem value="1y">1 Year</SelectItem>
-                    <SelectItem value="3y">3 Year</SelectItem>
-                </SelectContent>
-            </Select>
             <div className="flex-initial w-full">
                 {loading && <p>Loading...</p>}
                 {error && <p>Error: {error}</p>}
-                {chartData && <Chart chartData={chartData} loading={loading} />}
+                {chartData && (
+                    <Chart chartData={chartData} loading={loading}>
+                        <Select
+                            value={searchParam}
+                            onValueChange={(value) => setSearchParam(value)}
+                        >
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Select a timeframe" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="3m">3 Months</SelectItem>
+                                <SelectItem value="ytd">
+                                    Year To Date
+                                </SelectItem>
+                                <SelectItem value="1y">1 Year</SelectItem>
+                                <SelectItem value="3y">3 Years</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </Chart>
+                )}
             </div>
         </div>
     );

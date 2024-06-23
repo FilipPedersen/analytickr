@@ -31,6 +31,7 @@ ChartJS.register(
 type AppProps = {
     chartData: ChartData;
     loading: boolean;
+    children?: React.ReactNode;
 };
 
 const getRgbColor = (color: string): string => {
@@ -65,7 +66,7 @@ const createGradient = (
     return gradient;
 };
 
-const Chart: NextPage<AppProps> = ({ chartData }) => {
+const Chart: NextPage<AppProps> = ({ chartData, children }) => {
     const barOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -159,10 +160,15 @@ const Chart: NextPage<AppProps> = ({ chartData }) => {
 
     return (
         <Card className="border p-4">
-            <CardTitle>{chartData.label}</CardTitle>
-            <p className="text-[10px] text-neutral-400">
-                In {chartData.metric}
-            </p>
+            <div className="flex justify-between">
+                <div>
+                    <CardTitle>{chartData.label}</CardTitle>
+                    <p className="text-[10px] text-neutral-400">
+                        In {chartData.metric}
+                    </p>
+                </div>
+                {children}
+            </div>
             <CardContent>
                 <div className="h-56 pt-2">
                     {chartData.chartType === 'bar' ? (
