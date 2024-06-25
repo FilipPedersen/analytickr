@@ -61,8 +61,8 @@ const createGradient = (
     color: string,
 ): CanvasGradient => {
     const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
-    gradient.addColorStop(0, `rgba(${getRgbColor(color)}, 0.8)`);
-    gradient.addColorStop(1, `rgba(${getRgbColor(color)}, 0.4)`);
+    gradient.addColorStop(0, `rgba(${getRgbColor(color)}, 1)`);
+    gradient.addColorStop(1, `rgba(${getRgbColor(color)}, 0.5)`);
     return gradient;
 };
 
@@ -151,7 +151,7 @@ const Chart: NextPage<AppProps> = ({ chartData, children }) => {
                 return createGradient(context, chartArea, dataset.color);
             },
             borderColor: dataset.color,
-            borderWidth: { bar: 1, line: 2 }[chartData.chartType] || 1,
+            borderWidth: { bar: 1, line: 1 }[chartData.chartType] || 1,
             data: dataset.data,
             tension: dataset.tension || 0,
             fill: true,
@@ -162,7 +162,10 @@ const Chart: NextPage<AppProps> = ({ chartData, children }) => {
         <Card className="border p-4">
             <div className="flex justify-between">
                 <div>
-                    <CardTitle>{chartData.label}</CardTitle>
+                    <div className="flex gap-2 items-center">
+                        <span className="text-xl">{chartData.emoji}</span>
+                        <CardTitle>{chartData.label}</CardTitle>
+                    </div>
                     <p className="text-[10px] text-neutral-400">
                         In {chartData.metric}
                     </p>

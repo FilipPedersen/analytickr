@@ -38,7 +38,7 @@ const Dashboard = ({ params }: { params: { ticker: string } }) => {
     }, [ticker]);
 
     return (
-        <div className="w-full">
+        <div className="w-full mt-4">
             <CompanyDetails data={data ? data : null} loading={loading} />
             <div>
                 <Tabs defaultValue="quarterly" className="my-4">

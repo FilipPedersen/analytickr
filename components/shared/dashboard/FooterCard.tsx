@@ -118,8 +118,8 @@ const FooterCard: NextPage<AppProps> = ({ ownership, companyInformation }) => {
                                 </table>
                             ) : (
                                 <div className="flex items-center justify-center h-full">
-                                    <p className="font-medium text-2xl text-gray-500">
-                                        Coming soon⚡️
+                                    <p className="font-medium text-2xl text-gray-500 py-10">
+                                        Coming soon
                                     </p>
                                 </div>
                             )}
@@ -134,8 +134,8 @@ const FooterCard: NextPage<AppProps> = ({ ownership, companyInformation }) => {
                         /> */}
 
                         <div className="flex items-center justify-center h-full">
-                            <p className="font-medium text-2xl text-gray-500">
-                                Coming soon⚡️
+                            <p className="font-medium text-2xl text-gray-500 py-10">
+                                Coming soon
                             </p>
                         </div>
                     </div>
@@ -145,8 +145,8 @@ const FooterCard: NextPage<AppProps> = ({ ownership, companyInformation }) => {
             <div className="col-span-3 lg:col-span-1">
                 <CardTitle className="mb-4">Company News</CardTitle>
                 <div className="flex items-center justify-center h-full">
-                    <p className="font-medium text-2xl text-gray-500">
-                        Coming soon⚡️
+                    <p className="font-medium text-2xl text-gray-500 py-10">
+                        Coming soon
                     </p>
                 </div>
             </div>
